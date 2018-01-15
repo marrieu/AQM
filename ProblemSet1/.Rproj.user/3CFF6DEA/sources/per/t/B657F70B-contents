@@ -1,0 +1,520 @@
+
+#########################
+###DEMO
+#########################
+
+##all types of graphs
+demo(graphics)
+##create 3D graphs
+demo(persp)
+##all mathematical notation
+demo(plotmath)
+#all symbols and letters
+demo(Hershey)
+
+#help about packages
+library(help=diagram)
+
+objects(grep("diagram",search()))
+
+search()
+objects()
+
+
+#########################
+###CLEAN
+#########################
+
+####remove objects
+rm()
+###remove all
+rm(list=ls())
+
+
+#########################
+###DIRECTORY
+#########################
+
+###list Enviroment
+ls()
+
+##in your working directory
+dir()
+
+#get directory
+getwd()
+#set directory
+setwd(dir)
+
+#change line
+\n
+#########################
+###DOWLOAD DATA
+#########################
+
+### how to read excel 
+library(XLConnect)
+theData <- readWorksheet(loadWorkbook("Calories.xlsx"),sheet=1)
+
+#### read csv
+Data1<-read.csv(file.choose(),header=T)
+View(Data1)
+attach(Data1)
+summary(Data1)
+
+#########################
+####DATA INFORMATION
+#########################
+#information about the data set
+
+str()
+summary()
+table()
+class()
+mode()
+dim()
+leanght()
+names()
+###### returns the possible values that variable can have 
+levels()
+nlevels()
+
+#get first/last 10
+head()
+tail()
+
+#get the colum name 
+colnames(Sheet_1)
+
+#########################
+###CREATING DATA
+#########################
+
+A <- rep(1:2,each=12)
+B <- rep(1:4,each=3,length=24)
+C <- rep(1:3,length=24)
+
+
+#########################
+###SAMPLE DATA
+#########################
+
+dsample<-sample_n(dtrain,1000)
+
+#########################
+###PLOTTING
+#########################
+
+#reset the plot
+dev.off()
+#plot 2 graph on same 
+par(new=TRUE)
+#plot 2 graph separated
+par(mfrow=c(2,1))
+#awesome graph
+pairs(Derma[1:10])
+
+#########################
+###TRANSFORM DATA
+#########################
+as.factor()
+as.character()
+as.data.frame()
+library(dplyr)
+Derma <- Derma %>% mutate_if(is.integer,as.factor)
+
+factor_vars <- c('PassengerId','Pclass','Sex','Embarked',
+                 'Title','Surname','Family','FsizeD')
+
+full[factor_vars] <- lapply(full[factor_vars], function(x) as.factor(x))
+####transform into category
+mtcars$Trans<-factor(mtcars$am)
+
+#########################
+#COMBINE DATA SETS and CREATE DATA FRAME
+#########################
+
+X<-data.frame(days = 22:24)
+# cbind combines two columns 
+X<-cbind() #all not numeric
+#combine vertically
+X<-rbind()
+
+#concatenate
+cat()
+
+#########################
+###DUPLICATE
+#########################
+
+#unique returns a vector, data frame or array like x but with duplicate elements/rows removed.
+unique()
+
+#duplicated() determines which elements of a vector or data frame are duplicates of elements with smaller subscripts, and returns a logical vector indicating which elements (rows) are duplicates.
+duplicated()
+
+grep()
+
+
+
+#########################
+##RENAME
+##########################
+#rename column
+colnames(Block_Model1)[colnames(Block_Model1)=="valuable"] <- "default"
+colnames(Survey_Risk)<-c("Company","HI")
+library(data.table)
+
+setnames(DF, "oldName", "newName")
+
+#########################
+#DELETE COLUMN
+#########################
+
+##delete column
+Block_Model2$value_i<-NULL
+###easy way to delete variables
+select(mtcars,-name)
+
+###########################
+###SUBSET
+###########################
+##### | is the signal for OR 
+#### & is the signal for AND 
+#### "!=" not equal
+#### "==" gives you value TRUE or FALSE 
+
+### how to create a subset 
+subset(mtcars,subset=mpg>30 & mpg<33, select=c("mpg","disp"))
+mtcarsnew<-subset(mtcars,subset=am==1)
+filter(mtcars,cyl==8,carb==3)
+which()
+mean(Nike.quotes$Close[which(Nike.quotes$Year==16)])
+
+mtcars[mtcars$cyl == 4, ]
+mtcars[2:4, ]
+mtcars[mtcars$cyl %in% c(4,6), ]
+
+#by name
+Derma_var<-Derma[ , which(names(Derma) %in% name[1:3])]
+Derma_var2<-Derma_var[ , -which(names(Derma_var) %in% c("V30","V2","V10"))]
+
+internal_chars <- c('full_sq', 'life_sq', 'floor', 'max_floor', 'build_year', 'num_room', 
+                    'kitch_sq', 'state', 'price_doc')
+#dtrain[, ..internal_chars]
+dtrain[, internal_chars]
+
+#return the min/max value
+mtcars[which.min(mtcars$cyl), ]
+mtcars[which.max(mtcars$cyl), ]
+
+
+### how to remove NA
+y[! is.na(y),]
+
+###########################
+#######STRINGS
+###########################
+
+#concatenate
+paste("x", 1:25, sep="")
+
+
+library(stringr)
+filter(gapminder,str_sub(country,1,2) %in% c("Ca"))
+
+#data set
+aux<-Titanic_T[str_detect(Titanic_T$Name,"Jonkheer"),]
+
+### detect any "Ca" inside the name 
+filter(gapminder,str_detect(country,"Ca") )
+###filter 2000 to 2009
+filter(labtest,str_detect(date,"200(0|1|2|3|4|5|6|7|8|9)-"))
+#or
+filter(labtest,str_detect(date,"200[0123456789]-"))
+#or
+filter(labtest,str_detect(date,"200[0-9]-"))
+
+## 0 shows at least one time
+filter(labtest,str_detect(date,"-0{1,}6-"))
+
+#get the title but I don't know how
+Title <- gsub('(.*, )|(\\..*)', '', Titanic_T$Name)
+strsplit(combi$Name[1], split='[,.]')
+strsplit(combi$Name[1], split='[,.]')[[1]]
+strsplit(combi$Name[1], split='[,.]')[[1]][2]
+combi$Title <- sapply(combi$Name, FUN=function(x) {strsplit(x, split='[,.]')[[1]][2]})
+combi$Title <- sub(' ', '', combi$Title)
+
+#NEW
+aux<-str_split_fixed(df$latlng, "#-", 2)
+
+#Split variables
+strsplit(full$Cabin[2], NULL)[[1]]
+strsplit(full$Cabin[2], " ")[[1]]
+
+#split for a vector
+full$Deck<-factor(sapply(full$Cabin, function(x) strsplit(x, NULL)[[1]][1]))
+
+
+#############################
+### IF ELSE
+#############################
+
+train$Survived_Pred<-ifelse(train$predicted <= 0.5,0,1)
+
+#############################
+### ADD/ TRANSFORM VARIABLES
+#############################
+
+### transform add new variables to a data.frame
+X2<- transform(mtcars, disp_l=disp/61.0237)
+
+####do it at once
+X3<-mutate(mtcars, disp_l=disp/61.0237) 
+
+#### transmutate keeps only the new variable 
+X3<-transmutate(mtcars, disp_l=disp/61.0237) 
+
+######
+#find how many unique values it has
+length(unique())
+
+length(unique(Survey$ID))==nrow(Survey)
+
+#finding duplicated
+dupli_name<-Survey[duplicated(Survey$Name),]
+
+####################
+#####TABLE
+#####################
+
+table(gender,status)
+
+#calculating mean, variance for tables 
+tapply(Growth.rate,Detergent,mean)
+# BrandA   BrandB   BrandC   BrandD
+# 3.884832 4.010044 3.954512 3.558231
+
+tapply(Growth.rate,list(Daphnia,Detergent),mean)
+# BrandA   BrandB   BrandC   BrandD
+# Clone1 2.732227 2.929140 3.071335 2.626797
+# Clone2 3.919002 4.402931 4.772805 5.213745
+# Clone3 5.003268 4.698062 4.019397 2.834151
+
+tapply(Growth.rate,list(Daphnia,Detergent), function(x) sqrt(var(x)/length(x)))
+
+####################
+#####SORTING
+#####################
+
+#(when you use with( ) you don't need to type ..$Var)
+idx<-with(mtcars,order(cyl,carb,gear))
+mtcars[idx,]
+
+head(arrange(mtcars,cyl,carb,gear))
+### SORTING doing in reversing order 
+idx3<-with(mtcars,order(disp,mpg,decreasing=TRUE))
+mtcars[idx3,]
+
+############################
+#########GROUPING
+#############################
+
+#### AGREGATING (group variables by "cyl", calculating the mean)
+
+aggregate(mpg~cyl,mtcars,FUN=mean,trim=.1)
+
+### using 2 by 
+aggregate(mpg~cyl+carb,mtcars,FUN=mean)
+#cbind(y1, y2)
+
+###### VERY IMPORTANT HOW TO GROUP BY!!!!!
+X1<-group_by(mtcars,cyl) %>% summarise(N=length(mpg),mean=mean(mpg),sd=sd(mpg))
+X1<-as.data.frame(X1)
+
+X2<-aggregate(cbind(vs,am)~disp,mtcars,FUN=min)
+
+X2<-group_by(mtcars,disp) %>% summarise(max1=max(vs),max2=max(am),min1=min(vs),min2=min(am))
+
+X2<-group_by(mtcars,am,vs) %>% summarise(max1=max(disp),min1=min(disp))
+
+##### how to cut (or create groups )
+mtcars$mpg1<-cut(mtcars$mpg,breaks=3,include.lowest=TRUE)
+table(mtcars$mpg1)
+
+mtcars$mpg1<-cut(mtcars$mpg,breaks=c(10,20,30,40),include.lowest=TRUE)
+#### infinity
+mtcars$mpg1<-cut(mtcars$mpg,breaks=c(-Inf,20,Inf),include.lowest=TRUE,labels=c("lala","jaja"))
+Int
+
+#### how to group different levels into one level 
+levels(mtcars$Carb)<-c("1","2-3","2-3","4+","4+","4+")
+
+########################################################
+##### how to organize data frame in another format 
+#######################################################
+
+#transform time series in data frame
+#Quarterly earnings (dollars) per Johnson & Johnson share 1960–80.
+aa<-data.frame(matrix(JohnsonJohnson, ncol=frequency(JohnsonJohnson), dimnames=dimnames(.preformat.ts(JohnsonJohnson)) ))
+
+
+X1<-dcast(X,country~year,value.var="lifeExp")
+
+# country continent  year lifeExp      pop gdpPercap
+# (fctr)    (fctr) (int)   (dbl)    (int)     (dbl)
+# 1 Argentina  Americas  1982  69.942 29341374  8997.897
+# 2 Argentina  Americas  1987  70.774 31620918  9139.671
+# 3 Argentina  Americas  1992  71.868 33958947  9308.419
+# 4 Argentina  Americas  1997  73.275 36203463 10967.282
+# 5 Argentina  Americas  2002  74.340 38331121  8797.641
+# 6 Argentina  Americas  2007  75.320 40301927 12779.380
+# > X1<-dcast(X,country~year,value.var="lifeExp")
+# > head(X1)
+# country   1982   1987   1992   1997   2002   2007
+# 1 Argentina 69.942 70.774 71.868 73.275 74.340 75.320
+# 2   Bolivia 53.859 57.251 59.957 62.050 63.883 65.554
+# 3    Brazil 63.336 65.205 67.057 69.388 71.006 72.390
+# 4    Canada 75.760 76.860 77.950 78.610 79.770 80.653
+# 5     Chile 70.565 72.492 74.126 75.816 77.860 78.553
+# 6  Colombia 66.653 67.768 68.421 70.313 71.682 72.889
+# > 
+X1<-dcast(X,continent~year,value.var="lifeExp",fun.aggregate=mean)
+X2<-melt(X1,id.var=1,variable.name="Year",value.name="lifeExp")
+
+
+## Aggregate over sex (as in Snee's original data)
+x <- apply(HairEyeColor, c(1, 2), sum)
+
+
+####normalization
+scale()
+
+sapply()
+lapply()
+
+
+#### mu0>= 20, alternative < 20
+##mean of x 
+#19.6875 
+t.test(mtcars$mpg,alternative = "less",mu=20)
+
+# data:  mtcars$mpg
+# t = -0.29478, df = 31, p-value = 0.3851
+# alternative hypothesis: true mean is less than 20
+# 95 percent confidence interval:
+#   -Inf 21.48496
+# sample estimates:
+#   mean of x 
+# 19.6875 
+
+
+#Conclusion=> if null hypothesis is true, mu>= 20, there are 38% to get this result
+# so null hypothesis must be true => mu >=20
+
+
+#### mu0<= 20, alternative > 20
+##mean of x 
+#19.6875 
+t.test(mtcars$mpg,alternative = "greater",mu=20)
+
+# data:  mtcars$mpg
+# t = -0.29478, df = 31, p-value = 0.6149
+# alternative hypothesis: true mean is greater than 20
+# 95 percent confidence interval:
+#   17.89004      Inf
+# sample estimates:
+#   mean of x 
+# 19.6875 
+
+#Conclusion=> if null hypothesis is true, mu<=20, there are 61% to get this result
+# so null hypothesis must be true => mu <=20
+
+
+
+# Syntax	Description
+# \\d	Digit, 0,1,2 ... 9
+# \\D	Not Digit
+# \\s	Space
+# \\S	Not Space
+# \\w	Word
+# \\W	Not Word
+# \\t	Tab
+# \\n	New line
+# ^	Beginning of the string
+# $	End of the string
+# \	Escape special characters, e.g. \\ is "\", \+ is "+"
+# |	Alternation match. e.g. /(e|d)n/ matches "en" and "dn"
+# •	Any character, except \n or line terminator
+# [ab]	a or b
+# [^ab]	Any character except a and b
+# [0-9]	All Digit
+# [A-Z]	All uppercase A to Z letters
+# [a-z]	All lowercase a to z letters
+# [A-z]	All Uppercase and lowercase a to z letters
+# i+	i at least one time
+# i*	i zero or more times
+# i?	i zero or 1 time
+# i{n}	i occurs n times in sequence
+# i{n1,n2}	i occurs n1 - n2 times in sequence
+# i{n1,n2}?	non greedy match, see above example
+# i{n,}	i occures >= n times
+# [:alnum:]	Alphanumeric characters: [:alpha:] and [:digit:]
+# [:alpha:]	Alphabetic characters: [:lower:] and [:upper:]
+# [:blank:]	Blank characters: e.g. space, tab
+# [:cntrl:]	Control characters
+# [:digit:]	Digits: 0 1 2 3 4 5 6 7 8 9
+# [:graph:]	Graphical characters: [:alnum:] and [:punct:]
+# [:lower:]	Lower-case letters in the current locale
+# [:print:]	Printable characters: [:alnum:], [:punct:] and space
+# [:punct:]	Punctuation character: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~
+# [:space:]	Space characters: tab, newline, vertical tab, form feed, carriage return, space
+# [:upper:]	Upper-case letters in the current locale
+# [:xdigit:]	Hexadecimal digits: 0 1 2 3 4 5 6 7 8 9 A B C D E F a b c d e f
+# 
+# 
+
+
+##########################################
+#MISSING VALUES
+##########################################
+
+#checking for missing data
+md.pattern(full)
+
+#counting missing data for variable
+sum(is.na(full$Survived))
+
+apply(data,2,function(x) sum(is.na(x)))
+
+#getting only variables with no missing values
+completes <- complete.cases(dtrain)
+
+#multiple imputation using chained equations to generate missing values for data 
+library('mice') # imputation
+library('randomForest') # classification algorithm
+
+# Set a random seed
+set.seed(129)
+
+# Perform mice imputation, excluding certain less-than-useful variables:
+mice_mod <- mice(full[, !names(full) %in% c('PassengerId','Name','Ticket','Cabin','Family','Surname','Survived')], method='rf') 
+
+
+#standardize data
+<-( x -min(x))/(max(x)-min(x))
+
+#confusionmatrix
+#caret packege
+confusionMatrix(table())
+
+##########################################
+#GGPLOT
+##########################################
+
+#nice theme
+theme_minimal()+
+
+# 90 degrees
+  theme(axis.text.x=element_text(angle=90, hjust=1)) 
